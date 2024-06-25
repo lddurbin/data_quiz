@@ -1,92 +1,11 @@
+library(tidyverse)
 library(shiny)
 
+source("functions.R")
+
 # Define questions as a list
-questions <- list(
-  list(
-    id = 1,
-    question = "Choose your era",
-    choices = list(
-      list(
-        text = "The Elemental Age: I am younger than 26.",
-        image = "age_of_elements.png",
-        next_q = 2
-      ),
-      list(
-        text = "The Age of Discovery: I'm aged 26 to 39.",
-        image = "age_of_discovery.png",
-        next_q = 2
-      ),
-      list(
-        text = "The Golden Age: I'm aged 40 to 55.",
-        image = "golden_age.png",
-        next_q = 2
-      ),
-      list(
-        text = "The Age of the Sages: I'm 56 or older.",
-        image = "age_of_sages.png",
-        next_q = 2
-      )
-    )
-  ),
-  list(
-    id = 2,
-    question = "Are you a spellcaster?",
-    choices = list(
-      list(
-        text = "Yes, I regularly weave powerful lines of code to manipulate the forces of data",
-        image = "spellcaster_yes.png",
-        next_q = 3
-      ),
-      list(
-        text = "No, I do not pursue the magical arts of the coders",
-        image = "spellcaster_no.png",
-        next_q = 4
-      )
-    )
-  ),
-  list(
-    id = 3,
-    question = "Choose your weapon(s)",
-    choices = list(
-      list(
-        text = "Staff of Pythons: I weave spells using Python, casting fiery arrays and tuples",
-        image = "staff_of_pythons.png",
-        next_q = NULL
-      ),
-      list(
-        text = "Grimoire of R: I weave spells using R, summoning shadowy forces from the Tidyverse",
-        image = "grimoire_of_r.png",
-        next_q = NULL
-      ),
-      list(
-        text = "Sceptre of SQL: I weave spells using SQL, selecting arcane forces from the stars",
-        image = "sceptre_of_sql.png",
-        next_q = NULL
-      )
-    )
-  ),
-  list(
-    id = 4,
-    question = "Choose your weapon(s)",
-    choices = list(
-      list(
-        text = "Excelibur, Greatsword of Heroes: My sword slices through data in spreadsheets",
-        image = "excelibur.png",
-        next_q = NULL
-      ),
-      list(
-        text = "Dragon-Drop Daggers: I pierce through my data with cutting-edge tools like Alteryx, Tableau Prep, or Power Query",
-        image = "dragon_drop_daggers.png",
-        next_q = NULL
-      ),
-      list(
-        text = "Bow of Pure Intuition: I do not use data. I rely on my inner wisdom and experience to hit my mark",
-        image = "bow_of_pure_intuition.png",
-        next_q = NULL
-      )
-    )
-  )
-)
+quiz_data <- readr::read_csv(here::here("data/quiz_questions.csv"))
+questions <- df_to_list(quiz_data)
 
 # Function to get question by ID
 get_question_by_id <- function(id) {
